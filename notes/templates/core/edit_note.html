@@ -1,0 +1,12 @@
+<h1>Edit Note</h1>
+
+<div>
+    <form action="{% url 'edit-note' pk=note.pk %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button type="submit">Update Note</button>
+            <a href="{% url 'notes_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>

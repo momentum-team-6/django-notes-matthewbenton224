@@ -1,0 +1,22 @@
+<body style="
+font-family: monospace;background-color: aquamarine;font-size: large;text-align: -webkit-center;border: 15px solid azure;border-style: ridge;">
+<h1>My Notes:</h1>
+<form action="{% url 'search-bar' %}" method="GET">
+    <input type="text" name="search"/>
+    <button type="submit">Search</button>
+</form>
+<a href="{% url 'add_note' %}">Add Note</a>
+
+{% for note in notes %}
+<div class="card">
+    <div class="container"></div>
+        <p>{{ note.title }}</p>
+        <p>{{ note.body }}</p>
+        <a href="{% url 'note_detail' pk=note.pk %}">Details</a>
+        <a href="{% url 'edit-note' pk=note.pk %}">Edit</a>
+        <a href="{% url 'delete-note' pk=note.pk %}">Delete</a>
+        <hr>
+    </div>
+</div>
+{% endfor %}
+</body>

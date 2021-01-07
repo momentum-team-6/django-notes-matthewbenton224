@@ -1,0 +1,12 @@
+<h1>Delete</h1>
+
+<div>
+    <form action="{% url 'delete-note' pk=note.pk %}" method="POST">
+        {% csrf_token %}
+        <p>Delete this note? {{note.title}}</p>
+        <div>
+            <button type='submit'>Delete Note</button>
+            <a href="{% url 'notes_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
