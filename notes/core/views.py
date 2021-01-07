@@ -36,7 +36,7 @@ def edit_note(request, pk):
     if request.method == 'GET':
         form = NoteForm(instance=note)
     else:
-        form = NoteForm(data=request.POST, instace=note)
+        form = NoteForm(data=request.POST, instance=note)
         if form.is_valid():
             form.save()
             return redirect(to='notes_list')
