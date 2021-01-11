@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My Notes:</h1>
+<form action="{% url 'search-bar' %}" method="GET">
+    <input type="text" name="search"/>
+    <button type="submit">Search</button>
+</form>
+<a href="{% url 'add_note' %}">Add Note</a>
+
+{% for note in notes %}
+<div class="paper">
+    <div class="paper-content"><textarea autofocus></textarea>
+       <div>
+        <div class="title-body">
+            <p>{{ note.title }}</p>
+            <p>{{ note.body }}</p>
+            <a href="{% url 'note_detail' pk=note.pk %}">Details</a>
+            <a href="{% url 'edit-note' pk=note.pk %}">Edit</a>
+            <a href="{% url 'delete-note' pk=note.pk %}">Delete</a>
+    </textarea>
+    </div>
+        </div>
+        <hr>
+    </div>
+</div>
+<footer>
+    Inspired by a <a href="https://dribbble.com/shots/2126836-Inch-x-Inch-Sneak-Peek-2" target="_blank">Dribble</a> by Allan Peters
+</footer>
+{% endfor %}
+</body>
+</html>
