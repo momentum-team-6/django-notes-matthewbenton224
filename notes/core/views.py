@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from core.data import NOTES
 from core.models import Note
-from .forms import NoteForm
+from .forms import NoteForm, SearchForm
 
 # Create your views here.
 def list_notes(request):
     notes = Note.objects.all()
-    return render(request, 'core/index.html', {"notes": notes})
+    form = SearchForm() 
+    return render(request, 'core/home.html', {"notes": notes, 'form': form})
 
 def note_detail(request, pk):
     note = get_object_or_404(Note, pk=pk)
@@ -46,8 +47,14 @@ def edit_note(request, pk):
     })
 
 def search(request):
-    if request.method == 'GET':
-        note = Note.objects.all().filter(title=search)
-        return render(request, "core/searchbar.html", {
-            "note": note
-        })
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data["search"]
+            notes = Note.objects.filter(body__icontains=search)
+            return render(request, "core/search.html", 
+                {"notes": notes})
+    else:
+        return render(request, "core/search.html")
+
+
